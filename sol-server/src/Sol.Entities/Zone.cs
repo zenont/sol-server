@@ -11,8 +11,6 @@ namespace Sol.Entities
 
         public string Name { get; set; }
 
-        public string Code { get; set; }
-
         public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
     }
 }

@@ -7,8 +7,6 @@ namespace Sol.Entities
     {
         public string Name { get; set; }
 
-        public string Code { get; set; }
-
         public virtual ICollection<Zone> Zones { get; set; } = new List<Zone>();
     }
 }
