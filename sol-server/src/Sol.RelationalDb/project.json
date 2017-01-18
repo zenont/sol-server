@@ -3,7 +3,7 @@
 
   "dependencies": {
     "Microsoft.EntityFrameworkCore": "1.1.0",
-    "Microsoft.EntityFrameworkCore.Relational": "1.0.1",
+    "Microsoft.EntityFrameworkCore.Relational": "1.1.0",
     "NETStandard.Library": "1.6.1",
     "Sol.Common": "1.0.0",
     "Sol.Entities": "1.0.0"

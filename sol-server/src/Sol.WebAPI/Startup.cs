@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Sol.WebAPI.Mapping;
 using Mvc.Ext.Extensions;
 using Sol.RelationalDb.Composition.Extensions;
+using Sol.Services.Interfaces;
+using Sol.Services;
 
 namespace Sol.WebAPI
 {
@@ -40,6 +42,7 @@ namespace Sol.WebAPI
             services.AddSolDb(Configuration);
 
             // register custom services
+            services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddAutomapperWithSolMappings();
         }
 
