@@ -29,5 +29,8 @@ namespace Sol.Services.Interfaces
 
         Task DeleteInvoiceAsync(Invoice entity,
             CancellationToken cancellationToken = default(CancellationToken));
+
+        Task<IEnumerable<string>> ValidateInvoiceAsync(Invoice entity,
+            CancellationToken cancellationToken = default(CancellationToken));
     }
 }

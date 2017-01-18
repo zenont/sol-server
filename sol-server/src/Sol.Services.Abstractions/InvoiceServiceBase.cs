@@ -10,6 +10,7 @@ using Sol.RelationalDb;
 using Microsoft.EntityFrameworkCore;
 using NeinLinq;
 using Sol.RelationalDb.Extensions;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Sol.Services.Abstractions
 {
@@ -61,6 +62,44 @@ namespace Sol.Services.Abstractions
             SolDb.AddOrUpdate(entity);
             await SolDb.SaveChangesAsync(cancellationToken);
             return entity;
+        }
+
+        public virtual async Task<IEnumerable<string>> ValidateInvoiceAsync(Invoice entity, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var errors = new List<string>();
+
+            if(entity.DeliveryPointId <= 0)
+            {
+                errors.Add(SolWebApiErrors.InvalidDeliveryPoint);
+            }
+
+            if(entity.ZoneId <= 0)
+            {
+                errors.Add(SolWebApiErrors.InvalidZone);
+            }
+
+            if(entity.Start > entity.End)
+            {
+                errors.Add(SolWebApiErrors.InvalidDateRange);
+            }
+
+            // if errors at this point, then we return to avoid db rountrips
+            if(errors.Any())
+            {
+                return errors;
+            }
+
+            if(!await SolDb.DeliveryPoint.AnyAsync(x => x.Id == entity.DeliveryPointId))
+            {
+                errors.Add(SolWebApiErrors.InvalidDeliveryPoint);
+            }
+
+            if (!await SolDb.Zone.AnyAsync(x => x.Id == entity.ZoneId))
+            {
+                errors.Add(SolWebApiErrors.InvalidZone);
+            }
+
+            return errors;
         }
     }
 }

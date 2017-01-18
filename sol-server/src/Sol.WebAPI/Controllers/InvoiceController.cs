@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Sol.Common;
 using Sol.DTO;
+using Sol.Entities;
 
 namespace Sol.WebAPI.Controllers
 {
@@ -31,7 +32,6 @@ namespace Sol.WebAPI.Controllers
 
         protected ILogger<InvoiceController> Log { get; set; }
 
-        // GET api/values
         [HttpGet]
         public async Task<IActionResult> GetAsync(
             [FromQuery] int? deliveryPointId = null,
@@ -49,29 +49,45 @@ namespace Sol.WebAPI.Controllers
             return OkWrapped(mapped);
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> FindByIdAsync(int id)
         {
-            return "value";
+            var entity = await InvoiceService.FindInvoiceByIdAsync(id);
+            var mapped = Mapper.Map<InvoiceDTO>(entity);
+            return OkWrapped(mapped);
         }
 
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<IActionResult> SaveAsync([FromBody]InvoiceDTO dto)
         {
+            Invoice entity = await InvoiceService.FindInvoiceByIdAsync(dto.Id);
+            if(entity == null)
+            {
+                return NotFound();
+            }
+
+            var errors = await InvoiceService.ValidateInvoiceAsync(entity);
+            if(errors.Any())
+            {
+                return BadRequestWrapped(errors);
+            }
+
+            entity = await InvoiceService.SaveInvoiceAsync(entity);
+            var mapped = Mapper.Map<InvoiceDTO>(entity);
+            return OkWrapped(mapped);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
+            Invoice entity = await InvoiceService.FindInvoiceByIdAsync(id);
+            if (entity == null)
+            {
+                return Ok();
+            }
+
+            await InvoiceService.DeleteInvoiceAsync(entity);
+            return Ok();
         }
     }
 }
