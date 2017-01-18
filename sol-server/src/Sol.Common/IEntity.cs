@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sol.Entities
+namespace Sol.Common
 {
-    public class Class1
+    public interface IEntity<T>
     {
-        public Class1()
-        {
-        }
+        T Id { get; set; }
     }
 }
