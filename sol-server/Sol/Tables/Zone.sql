@@ -11,4 +11,4 @@
 
 GO
 
-CREATE UNIQUE INDEX [IX_Zone_Name] ON [dbo].[Zone] ([Name])
+CREATE UNIQUE INDEX [IX_Zone_Market_Name] ON [dbo].[Zone] ([MarketId], [Name])
