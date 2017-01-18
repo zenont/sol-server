@@ -8,11 +8,15 @@ namespace Sol.DTO
 {
     public class InvoiceDTO : Int32EntityBase
     {
-        public string DeliveryPoint { get; set; }
+        public int DeliveryPointId { get; set; }
+
+        public DeliveryPointDTO DeliveryPoint { get; set; }
 
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
+
+        public int ZoneId { get; set; }
 
         public virtual ZoneDTO Zone { get; set; }
 

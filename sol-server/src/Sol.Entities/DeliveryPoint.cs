@@ -1,17 +1,14 @@
 ﻿using Sol.Common;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sol.Entities
 {
-    public class Zone: Int32EntityBase
+    public class DeliveryPoint: Int32EntityBase
     {
-        public int MarketId { get; set; }
-
-        public virtual Market Market { get; set; }
-
         public string Name { get; set; }
-
-        public string Code { get; set; }
 
         public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
     }

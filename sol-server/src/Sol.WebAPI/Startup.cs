@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sol.WebAPI.Mapping;
 using Mvc.Ext.Extensions;
+using Sol.RelationalDb.Composition.Extensions;
 
 namespace Sol.WebAPI
 {
@@ -34,6 +35,9 @@ namespace Sol.WebAPI
             services.AddLogging();
             services.AddOptions();
             services.AddMvc().WithCamelCaseJson();
+
+            // db context
+            services.AddSolDb(Configuration);
 
             // register custom services
             services.AddAutomapperWithSolMappings();

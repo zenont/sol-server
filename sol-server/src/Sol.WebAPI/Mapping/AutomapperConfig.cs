@@ -12,12 +12,10 @@ namespace Sol.WebAPI.Mapping
     {
         public static void ConfigureMapper(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<Invoice, InvoiceDTO>();
-            cfg.CreateMap<InvoiceDTO, Invoice>()
-                .ForMember(d => d.ZoneId, o => o.MapFrom(s => s.Zone.Id));
-
+            cfg.CreateMap<Invoice, InvoiceDTO>().ReverseMap();
             cfg.CreateMap<Zone, ZoneDTO>().ReverseMap();
             cfg.CreateMap<Market, MarketDTO>().ReverseMap();
+            cfg.CreateMap<DeliveryPoint, DeliveryPointDTO>().ReverseMap();
         }
 
         public static IMapper CreateMapper()

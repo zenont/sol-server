@@ -18,7 +18,11 @@
     },
     "Mvc.Ext": "1.0.0",
     "Sol.DTO": "1.0.0",
-    "Sol.Entities": "1.0.0"
+    "Sol.Entities": "1.0.0",
+    "Sol.RelationalDb.Composition": "1.0.0",
+    "Sol.Services": "1.0.0",
+    "Sol.Services.Abstractions": "1.0.0",
+    "Sol.Services.Interfaces": "1.0.0"
   },
 
   "tools": {

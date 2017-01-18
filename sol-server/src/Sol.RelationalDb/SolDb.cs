@@ -18,14 +18,14 @@ namespace Sol.RelationalDb
 
         public virtual DbSet<Zone> Zone { get; set; }
 
-        public virtual DbSet<Evaluation> Evaluation { get; set; }
+        public virtual DbSet<DeliveryPoint> DeliveryPoint { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             OnModelCreating(modelBuilder.Entity<Invoice>());
             OnModelCreating(modelBuilder.Entity<Market>());
             OnModelCreating(modelBuilder.Entity<Zone>());
-            OnModelCreating(modelBuilder.Entity<Evaluation>());
+            OnModelCreating(modelBuilder.Entity<DeliveryPoint>());
             base.OnModelCreating(modelBuilder);
         }
 
@@ -33,9 +33,6 @@ namespace Sol.RelationalDb
         {
             builder.ToTable("Invoice")
                 .AsInt32Entity();
-
-            // rels
-            builder.HasMany(p => p.Evaluations).WithOne(p => p.Invoice).HasForeignKey(p => p.InvoiceId).HasPrincipalKey(p => p.Id);
         }
 
         protected void OnModelCreating(EntityTypeBuilder<Market> builder)
@@ -49,12 +46,17 @@ namespace Sol.RelationalDb
         {
             builder.ToTable("Zone")
                 .AsInt32Entity();
+
+            // rels
+            builder.HasMany(p => p.Invoices).WithOne(p => p.Zone).HasForeignKey(p => p.ZoneId).HasPrincipalKey(p => p.Id);
         }
 
-        protected void OnModelCreating(EntityTypeBuilder<Evaluation> builder)
+        protected void OnModelCreating(EntityTypeBuilder<DeliveryPoint> builder)
         {
-            builder.ToTable("Evaluation")
+            builder.ToTable("DeliveryPoint")
                 .AsInt32Entity();
+
+            builder.HasMany(p => p.Invoices).WithOne(p => p.DeliveryPoint).HasForeignKey(p => p.DeliveryPointId).HasPrincipalKey(p => p.Id);
         }
     }
 }

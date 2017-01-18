@@ -63,5 +63,9 @@
     <Build Include="Tables\Invoice.sql" />
     <Build Include="Tables\Market.sql" />
     <Build Include="Tables\Zone.sql" />
+    <Build Include="Tables\DeliveryPoint.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sol.Local.publish.xml" />
   </ItemGroup>
 </Project>
