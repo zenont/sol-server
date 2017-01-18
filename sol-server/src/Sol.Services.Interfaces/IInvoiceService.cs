@@ -24,6 +24,8 @@ namespace Sol.Services.Interfaces
         Task<Invoice> FindInvoiceByIdAsync(int id,
             CancellationToken cancellationToken = default(CancellationToken));
 
+        Task<bool> CheckInvoiceExistsByIdAsync(int id, CancellationToken cancellationToken = default(CancellationToken));
+
         Task<Invoice> SaveInvoiceAsync(Invoice entity,
             CancellationToken cancellationToken = default(CancellationToken));
 

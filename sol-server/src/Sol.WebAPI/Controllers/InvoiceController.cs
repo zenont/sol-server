@@ -60,12 +60,13 @@ namespace Sol.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveAsync([FromBody]InvoiceDTO dto)
         {
-            Invoice entity = await InvoiceService.FindInvoiceByIdAsync(dto.Id);
-            if(entity == null)
+            // if the entity is not new, we first check if it exists
+            if(!dto.IsNew && !await InvoiceService.CheckInvoiceExistsByIdAsync(dto.Id))
             {
                 return NotFound();
             }
 
+            Invoice entity = Mapper.Map<Invoice>(dto);
             var errors = await InvoiceService.ValidateInvoiceAsync(entity);
             if(errors.Any())
             {

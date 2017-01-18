@@ -14,6 +14,14 @@ namespace Sol.Common
             get; set;
         }
 
+        public bool IsNew
+        {
+            get
+            {
+                return Id == 0;
+            }
+        }
+
         public DateTime? ModifyUtc
         {
             get;set;

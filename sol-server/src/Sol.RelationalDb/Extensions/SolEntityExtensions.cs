@@ -36,16 +36,18 @@ namespace Sol.RelationalDb.Extensions
             return true;
         }
 
-        public static EntityEntry<TEntity> AddOrUpdate<TEntity>(this DbContext dbContext, TEntity entity, 
+        public static EntityEntry<TEntity> AddOrUpdate<TEntity>(this DbContext dbContext, TEntity entity,
             CancellationToken cancellationToken = default(CancellationToken))
-            where TEntity : class, IEntity<int>
+            where TEntity : class, IDatedEntity<int>
         {
             if (entity.Id == 0)
             {
+                entity.CreateUtc = DateTime.UtcNow;
                 return dbContext.Add(entity);
             }
             else
             {
+                entity.ModifyUtc = DateTime.UtcNow;
                 return dbContext.Update(entity);
             }
         }

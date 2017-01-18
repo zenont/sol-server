@@ -31,6 +31,11 @@ namespace Sol.Services.Abstractions
             return await SolDb.FindAsync<Invoice>(new object[] { id }, cancellationToken);
         }
 
+        public virtual async Task<bool> CheckInvoiceExistsByIdAsync(int id, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return await SolDb.Invoice.AnyAsync(x => x.Id == id, cancellationToken);
+        }
+
         public virtual async Task<IEnumerable<Invoice>> GetInvoiceAsync(
             int? deliveryPointId = null, 
             int? zoneId = null, 
