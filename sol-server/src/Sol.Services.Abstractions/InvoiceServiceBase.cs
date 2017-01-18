@@ -28,7 +28,7 @@ namespace Sol.Services.Abstractions
 
         public virtual async Task<Invoice> FindInvoiceByIdAsync(int id, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await SolDb.FindAsync<Invoice>(id, cancellationToken);
+            return await SolDb.FindAsync<Invoice>(new object[] { id }, cancellationToken);
         }
 
         public virtual async Task<IEnumerable<Invoice>> GetInvoiceAsync(
