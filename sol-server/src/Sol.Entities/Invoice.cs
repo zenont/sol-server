@@ -1,5 +1,6 @@
 ﻿using Sol.Common;
 using System;
+using System.Collections.Generic;
 
 namespace Sol.Entities
 {
@@ -20,5 +21,7 @@ namespace Sol.Entities
         public DateTime? LastEvaluation { get; set; }
 
         public string LastEvaluatedBy { get; set; }
+
+        public virtual ICollection<Evaluation> Evaluations { get; set; } = new List<Evaluation>();
     }
 }

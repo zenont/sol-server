@@ -1,0 +1,14 @@
+﻿CREATE TABLE [dbo].[Invoice]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+	[DeliveryPoint] VARCHAR(50) NULL,
+	[Start] DATETIME2 NOT NULL,
+	[End] DATETIME2 NOT NULL,
+	[ZoneId] INT NOT NULL,
+	[EvaluationState] INT NOT NULL DEFAULT 0,
+	[LastEvaluation] DATETIME2 NULL,
+	[LastEvaluatedBy] VARCHAR(30) NULL,
+    [CreateUtc] DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(), 
+    [ModifyUtc] DATETIME2 NULL, 
+    [Timestamp] TIMESTAMP NOT NULL
+)

@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[Market]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[Name] VARCHAR(20) NOT NULL,
+	[CreateUtc] DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(), 
+    [ModifyUtc] DATETIME2 NULL, 
+    [Timestamp] TIMESTAMP NOT NULL
+)
+
+GO
+
+CREATE UNIQUE INDEX [IX_Market_Name] ON [dbo].[Market] ([Name])

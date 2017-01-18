@@ -2,8 +2,11 @@
   "version": "1.0.0",
 
   "dependencies": {
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
+    "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
     "NETStandard.Library": "1.6.1",
-    "Sol.Common": "1.0.0"
+    "Sol.RelationalDb": "1.0.0"
   },
 
   "frameworks": {
