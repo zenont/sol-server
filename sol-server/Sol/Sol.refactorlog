@@ -7,4 +7,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[IX_Zone_Market_Name]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="21e23f56-024d-49ee-ab61-0bd5407f0846" ChangeDateTime="01/29/2017 11:50:03">
+    <Property Name="ElementName" Value="[dbo].[Container].[Timestamp]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Container]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RowVersion]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="55e72a7f-94bb-442a-984a-8b14061b3e46" ChangeDateTime="01/29/2017 11:50:25">
+    <Property Name="ElementName" Value="[dbo].[ContainerItem].[Timestamp]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ContainerItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RowVersion]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="57a2fa40-e822-4f50-b354-e9773175105f" ChangeDateTime="01/29/2017 11:50:43">
+    <Property Name="ElementName" Value="[dbo].[Tenant].[Timestamp]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Tenant]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RowVersion]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a77d5aed-1dc8-44cf-b8fd-aee35bdbb9a9" ChangeDateTime="01/29/2017 11:51:03">
+    <Property Name="ElementName" Value="[dbo].[Warehouse].[Timestamp]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Warehouse]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[RowVersion]" />
+  </Operation>
 </Operations>
