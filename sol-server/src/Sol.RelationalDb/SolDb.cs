@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Data;
+using System.Data.SqlClient;
+using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Sol.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sol.RelationalDb.Extensions;
@@ -9,7 +12,7 @@ namespace Sol.RelationalDb
     {
         public SolDb(DbContextOptions<SolDb> options) : base(options)
         {
-
+           
         }
 
         public virtual DbSet<Invoice> Invoice { get; set; }
@@ -57,6 +60,13 @@ namespace Sol.RelationalDb
                 .AsInt32Entity();
 
             builder.HasMany(p => p.Invoices).WithOne(p => p.DeliveryPoint).HasForeignKey(p => p.DeliveryPointId).HasPrincipalKey(p => p.Id);
+        }
+
+        public IDbConnection GetConnection()
+        {
+            IDbDapperContextFactory f;
+            IDbConnection conn = new SqlConnection();
+            conn.QueryAsync<Invoice>("select * from dbo.Invoice")
         }
     }
 }

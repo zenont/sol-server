@@ -61,13 +61,12 @@
     <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Invoice.sql" />
-    <Build Include="Tables\Market.sql" />
-    <Build Include="Tables\Zone.sql" />
-    <Build Include="Tables\DeliveryPoint.sql" />
+    <Build Include="Tables\Warehouse.sql" />
+    <Build Include="Tables\Tenant.sql" />
+    <Build Include="Tables\Container.sql" />
+    <Build Include="Tables\ContainerItem.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sol.Local.publish.xml" />
     <None Include="Scripts\Script_Data.sql" />
   </ItemGroup>
   <ItemGroup>
