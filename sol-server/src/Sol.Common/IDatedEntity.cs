@@ -4,8 +4,8 @@ namespace Sol.Common
 {
     public interface IDatedEntity<T> :IEntity<T>
     {
-        DateTime? ModifyUtc { get; set; }
+        DateTime? ModifiedUtc { get; set; }
 
-        DateTime CreateUtc { get; set; }
+        DateTime CreatedUtc { get; set; }
     }
 }

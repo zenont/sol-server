@@ -16,7 +16,7 @@ namespace Sol.RelationalDb.Extensions
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).HasColumnName("Id");
-            builder.Property(p => p.Timestamp)
+            builder.Property(p => p.RowVersion)
             .ValueGeneratedOnAddOrUpdate()
             .IsConcurrencyToken();
             return builder;
@@ -42,12 +42,12 @@ namespace Sol.RelationalDb.Extensions
         {
             if (entity.Id == 0)
             {
-                entity.CreateUtc = DateTime.UtcNow;
+                entity.CreatedUtc = DateTime.UtcNow;
                 return dbContext.Add(entity);
             }
             else
             {
-                entity.ModifyUtc = DateTime.UtcNow;
+                entity.ModifiedUtc = DateTime.UtcNow;
                 return dbContext.Update(entity);
             }
         }

@@ -2,9 +2,9 @@
 
 namespace Sol.Common
 {
-    public class Int32EntityBase : ITimestampEntity<int>, IDatedEntity<int>
+    public class Int32EntityBase : IRowVersionEntity<int>, IDatedEntity<int>
     {
-        public DateTime CreateUtc
+        public DateTime CreatedUtc
         {
             get;set;
         }
@@ -14,20 +14,14 @@ namespace Sol.Common
             get; set;
         }
 
-        public bool IsNew
-        {
-            get
-            {
-                return Id == 0;
-            }
-        }
+        public bool IsNew => Id == 0;
 
-        public DateTime? ModifyUtc
+        public DateTime? ModifiedUtc
         {
             get;set;
         }
 
-        public byte[] Timestamp
+        public byte[] RowVersion
         {
             get;set;
         }
