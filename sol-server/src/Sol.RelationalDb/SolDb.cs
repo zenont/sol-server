@@ -1,72 +1,55 @@
-﻿using System.Data;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Sol.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.Options;
 using Sol.RelationalDb.Extensions;
 
 namespace Sol.RelationalDb
 {
-    public class SolDb: DbContext
+    public class SolDb
     {
-        public SolDb(DbContextOptions<SolDb> options) : base(options)
+        protected const string SkipParam = "@skip";
+        protected const string TakeParam = "@take";
+
+        public SolDb(IOptions<SolDbSettings> solDbSettingsOptions)
         {
-           
+            Settings = solDbSettingsOptions.Value;
         }
 
-        public virtual DbSet<Invoice> Invoice { get; set; }
+        public SolDbSettings Settings { get; protected set; }
 
-        public virtual DbSet<Market> Market { get; set; }
-
-        public virtual DbSet<Zone> Zone { get; set; }
-
-        public virtual DbSet<DeliveryPoint> DeliveryPoint { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected string AppendOrderBy(string query, string column, bool asc)
         {
-            OnModelCreating(modelBuilder.Entity<Invoice>());
-            OnModelCreating(modelBuilder.Entity<Market>());
-            OnModelCreating(modelBuilder.Entity<Zone>());
-            OnModelCreating(modelBuilder.Entity<DeliveryPoint>());
-            base.OnModelCreating(modelBuilder);
+            string order = asc ? "ASC" : "DESC";
+            return $"{query} ORDER BY {column} {order}";
         }
 
-        protected void OnModelCreating(EntityTypeBuilder<Invoice> builder)
+        protected string AppendFetchOffsetQuery(string query)
         {
-            builder.ToTable("Invoice")
-                .AsInt32Entity();
+            return $"{query} OFFSET {SkipParam} ROWS FETCH NEXT {TakeParam} ROWS ONLY";
         }
 
-        protected void OnModelCreating(EntityTypeBuilder<Market> builder)
+        public async  Task<IEnumerable<Tenant>> GetTenantsAsync(string orderBy = "CreatedUtc", bool isAsc = true, int? skip = 0, int? take = 0)
         {
-            builder.ToTable("Market")
-                .AsInt32Entity();
-            builder.HasMany(p => p.Zones).WithOne(p => p.Market).HasForeignKey(p => p.MarketId).HasPrincipalKey(p => p.Id).IsRequired();
-        }
-
-        protected void OnModelCreating(EntityTypeBuilder<Zone> builder)
-        {
-            builder.ToTable("Zone")
-                .AsInt32Entity();
-
-            // rels
-            builder.HasMany(p => p.Invoices).WithOne(p => p.Zone).HasForeignKey(p => p.ZoneId).HasPrincipalKey(p => p.Id);
-        }
-
-        protected void OnModelCreating(EntityTypeBuilder<DeliveryPoint> builder)
-        {
-            builder.ToTable("DeliveryPoint")
-                .AsInt32Entity();
-
-            builder.HasMany(p => p.Invoices).WithOne(p => p.DeliveryPoint).HasForeignKey(p => p.DeliveryPointId).HasPrincipalKey(p => p.Id);
+            using (var conn = GetConnection())
+            {
+                string sql = "select Id, Name, RowVersion from dbo.Tenant";
+                sql = AppendOrderBy(sql, orderBy, isAsc);
+                sql = AppendFetchOffsetQuery(sql);
+                return  await conn.QueryAsync<Tenant>(sql, new {skip, take});
+            }
         }
 
         public IDbConnection GetConnection()
         {
-            IDbDapperContextFactory f;
-            IDbConnection conn = new SqlConnection();
-            conn.QueryAsync<Invoice>("select * from dbo.Invoice")
+            IDbConnection conn = new SqlConnection(Settings.ConnectionString);
+            return conn;
         }
     }
 }

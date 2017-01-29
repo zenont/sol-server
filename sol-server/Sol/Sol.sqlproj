@@ -59,6 +59,7 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="Scripts" />
+    <Folder Include="Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Warehouse.sql" />
