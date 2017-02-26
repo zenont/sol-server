@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Sol.AMQP.Abstractions.Extensions;
+using RawRabbit.vNext;
 
 namespace Sol.Services.Containers
 {
@@ -37,7 +37,13 @@ namespace Sol.Services.Containers
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddRawRabbit(config =>
+            {
+                config.AddJsonFile("rawrabbit.json");
 
+                //config.AddEnvironmentVariables("RABBIT_");
+
+            });
             services.AddMvc();
         }
 
@@ -46,9 +52,6 @@ namespace Sol.Services.Containers
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.DeclareQueue("localhost", "somequeue");
-
             app.UseMvc();
         }
     }

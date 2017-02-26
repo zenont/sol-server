@@ -17,7 +17,9 @@
     "Microsoft.Extensions.Logging.Debug": "1.1.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "RabbitMQ.Client": "4.1.1",
-    "Sol.AMQP.Abstractions": "1.0.0"
+    "Sol.AMQP.Abstractions": "1.0.0",
+    "RawRabbit.vNext": "1.10.3",
+    "RawRabbit": "1.10.3"
   },
 
   "tools": {
@@ -49,6 +51,7 @@
       "wwwroot",
       "**/*.cshtml",
       "appsettings.json",
+      "rawrabbit.json",
       "web.config"
     ]
   },
